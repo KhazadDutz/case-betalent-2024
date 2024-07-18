@@ -24,4 +24,4 @@ Route.get('/', async () => {
   return { hello: 'world' }
 })
 
-Route.get('users', 'UserController.index')
+Route.resource('/users', 'UsersController')
