@@ -20,8 +20,9 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
-Route.get('/', async () => {
-  return { hello: 'world' }
-})
-
+Route.on('/').redirectToPath('/login');
+Route.resource('/login', 'LoginController')
 Route.resource('/users', 'UsersController')
+// Route.resource('/clients', 'ClientsController')
+// Route.resource('/products', 'ProductsController')
+// Route.resource('/sales', 'SalesController')

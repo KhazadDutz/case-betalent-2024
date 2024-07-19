@@ -1,13 +1,9 @@
-import Address from './Address'
 import { DateTime } from 'luxon'
 import { BaseModel, BelongsTo, belongsTo, column, HasOne, hasOne } from '@ioc:Adonis/Lucid/Orm'
 import CellphoneNumber from './CellphoneNumber'
 import Sale from './Sale'
 
 export default class Client extends BaseModel {
-  @hasOne(() => Address)
-  declare address: HasOne<typeof Address>
-
   @belongsTo(() => CellphoneNumber)
   declare cellphone: BelongsTo<typeof CellphoneNumber>
 
@@ -21,7 +17,7 @@ export default class Client extends BaseModel {
   public name: string
 
   @column()
-  public CPF: string
+  public cpf: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
