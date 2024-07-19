@@ -7,8 +7,6 @@ export default class ClientsController {
     return clients
   }
 
-  public async create({}: HttpContextContract) {}
-
   public async store({ request }: HttpContextContract) {
     const body = request.only(['name', 'cpf'])
 
@@ -21,11 +19,15 @@ export default class ClientsController {
     return client
   }
 
-  public async show({}: HttpContextContract) {}
+  public async show({}: HttpContextContract) {
+    return 'SHOW CLIENTS'
+  }
 
-  public async edit({}: HttpContextContract) {}
+  public async update({}: HttpContextContract) {
+    return 'UPDATE CLIENTS'
+  }
 
-  public async update({}: HttpContextContract) {}
-
-  public async destroy({}: HttpContextContract) {}
+  public async destroy({}: HttpContextContract) {
+    return 'DESTROY CLIENTS'
+  }
 }

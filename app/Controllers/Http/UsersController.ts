@@ -8,8 +8,6 @@ export default class UsersController {
     return user
   }
 
-  public async create({}: HttpContextContract) {}
-
   public async store({ request }: HttpContextContract) {
 
     const body = request.only(['email', 'password'])
@@ -24,14 +22,14 @@ export default class UsersController {
   }
 
   public async show({}: HttpContextContract) {
-    return 'Show'
+    return 'SHOW USERS'
   }
 
   public async update({}: HttpContextContract) {
-    return 'Update'
+    return 'UPDATE USERS'
   }
 
   public async destroy({}: HttpContextContract) {
-    return 'Destroy'
+    return 'DESTROY USERS'
   }
 }

@@ -5,14 +5,14 @@ import { DateTime } from 'luxon'
 import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 
 export default class Client extends BaseModel {
+  @belongsTo(() => Address)
+  declare address: BelongsTo<typeof Address>
+
   @belongsTo(() => CellphoneNumber)
   declare cellphone: BelongsTo<typeof CellphoneNumber>
 
   @belongsTo(() => Sale)
   declare sale: BelongsTo<typeof Sale>
-
-  @belongsTo(() => Address)
-  declare address: BelongsTo<typeof Address>
 
   @column({ isPrimary: true })
   public id: number
