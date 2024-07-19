@@ -49,7 +49,7 @@ export default class ClientsController {
   public async destroy({ request }: HttpContextContract) {
     try {
       const clientId = request.param('id')
-      const client = await Client.findByOrFail(clientId)
+      const client = await Client.findOrFail(clientId)
       await client.delete()
 
       return { status: 'Client Deleted Successfully'}
