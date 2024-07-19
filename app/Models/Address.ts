@@ -1,7 +1,11 @@
+import Client from './Client'
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, hasOne, HasOne } from '@ioc:Adonis/Lucid/Orm'
 
 export default class Address extends BaseModel {
+  @hasOne(() => Client)
+  public profile: HasOne<typeof Client>
+
   @column({ isPrimary: true })
   public id: number
 
