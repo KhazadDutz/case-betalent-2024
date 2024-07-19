@@ -4,8 +4,8 @@ import User from 'App/Models/User'
 export default class UsersController {
   //Lista os usuários
   public async index({}: HttpContextContract) {
-    const user = await User.all()
-    return user
+    const users = await User.all()
+    return users
   }
 
   public async store({ request }: HttpContextContract) {
@@ -21,15 +21,14 @@ export default class UsersController {
     return user
   }
 
-  public async show({}: HttpContextContract) {
-    return 'SHOW USERS'
+  public async show({ request }: HttpContextContract) {
+    const userId = request.param('id')
+    try {
+      const user = await User.find(userId)
+      return user
+    } catch (error) {
+      console.log(error)
+    }
   }
 
-  public async update({}: HttpContextContract) {
-    return 'UPDATE USERS'
-  }
-
-  public async destroy({}: HttpContextContract) {
-    return 'DESTROY USERS'
-  }
 }

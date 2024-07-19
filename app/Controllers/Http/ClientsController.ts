@@ -19,15 +19,42 @@ export default class ClientsController {
     return client
   }
 
-  public async show({}: HttpContextContract) {
-    return 'SHOW CLIENTS'
+  public async show({ request }: HttpContextContract) {
+    try {
+      const clientId = request.param('id')
+      const client = await Client.findOrFail(clientId)
+      
+      return client
+    } catch (error) {
+      console.log(error)
+    }    
+
   }
 
-  public async update({}: HttpContextContract) {
-    return 'UPDATE CLIENTS'
+  public async update({ request }: HttpContextContract) {
+    try {
+      const userId = request.param('id')
+      const body = request.only(['name', 'cpf'])
+
+      const user = await Client.findOrFail(userId)
+      await user.merge(body).save()
+      
+      return {status: 'Client Updated Successfully'}
+
+    } catch (error) {
+      console.log(error)
+    }    
   }
 
-  public async destroy({}: HttpContextContract) {
-    return 'DESTROY CLIENTS'
+  public async destroy({ request }: HttpContextContract) {
+    try {
+      const clientId = request.param('id')
+      const client = await Client.findByOrFail(clientId)
+      await client.delete()
+
+      return { status: 'Client Deleted Successfully'}
+    } catch (error) {
+      
+    }
   }
 }
