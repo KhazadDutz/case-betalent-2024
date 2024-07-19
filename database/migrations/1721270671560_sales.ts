@@ -9,8 +9,8 @@ export default class extends BaseSchema {
       table.integer('client_id').unsigned().references('clients.id').onDelete('CASCADE')
       table.string('product')
       table.integer('quantity')
-      table.integer('unit_price')
-      table.integer('total_price')
+      table.double('unit_price')
+      table.double('total_price')
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
