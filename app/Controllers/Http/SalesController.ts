@@ -6,7 +6,6 @@ export default class SalesController {
 
   public async store({ request }: HttpContextContract) {
     const payload = request.body()
-    console.log(payload, 'UNDEFINED?')
     try {
       const sale = await Sale.create(payload)
       console.log(sale.$isPersisted, 'ERROOOOO')

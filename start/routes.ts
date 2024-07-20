@@ -21,7 +21,7 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.on('/').redirectToPath('/login');
-Route.resource('/login', 'LoginController')
+Route.resource('/signup', 'SignupController') //OK
 Route.resource('/users', 'UsersController')
 Route.resource('/clients', 'ClientsController')
 Route.resource('/products', 'ProductsController')
