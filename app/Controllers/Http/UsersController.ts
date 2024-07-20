@@ -8,13 +8,22 @@ export default class UsersController {
     return users
   }
 
-  public async store({ request }: HttpContextContract) {
-    const body = request.only(['email', 'password'])
+  // SignUp method
+  public async store({ auth, request, response }: HttpContextContract) {
     try {
-      const user = await User.findBy('email', body.email)
+      const body = request.only(['email', 'password'])
+
+      const doesUserExist = await User.findBy('email', body.email)
       
+      if (doesUserExist) throw new Error("Unprocessable Entity")
+      const createdUser = await User.create({
+        email: body.email,
+        password: body.password,
+      })
+      
+      return {user: createdUser}
     } catch (error) {
-      console.error(error)
+      return response.unauthorized({message: error.message})
     }
   }
 
@@ -27,5 +36,16 @@ export default class UsersController {
       console.log(error)
     }
   }
+
+  public async login({auth, request, response}: HttpContextContract) {
+    const body = request.only(['email', 'password'])
+
+    try {
+        const token =  await auth.use('api').attempt(body.email, body.password)
+        return token
+    } catch (error) {
+        return response.unauthorized('Invalid credentials')
+    }
+}
 
 }

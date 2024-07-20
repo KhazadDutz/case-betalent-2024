@@ -2,7 +2,7 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Client from 'App/Models/Client'
 
 export default class ClientsController {
-  public async index({}: HttpContextContract) {
+  public async index({ response }: HttpContextContract) {
     try {
       const clients = await Client.all()
       const filteredClients = clients.map(({id, name, cpf}) => {
@@ -11,27 +11,27 @@ export default class ClientsController {
       
       return filteredClients
     } catch (error) {
-      console.log(error)
+      return response.unauthorized()
     }
   }
 
-  public async store({ request }: HttpContextContract) {
+  public async store({ request, response }: HttpContextContract) {
     const payload = request.body()
     const searchCriteria = { cpf: payload.cpf }
 
     try {
       const client = await Client.firstOrCreate(searchCriteria, payload)
 
-      if (!client.$isLocal) throw new Error("Client already registered");
+      if (!client.$isLocal) throw new Error("Unautorized credentials");
       
       console.log(client.$isPersisted)
       return client
     } catch (error) {
-      console.log(error)
+      response.badRequest({message: error.message})
     }
   }
 
-  public async show({ request }: HttpContextContract) {
+  public async show({ request, response }: HttpContextContract) {
     try {
       const client = await Client.findOrFail(request.param('id'))
       await client.load('sales')
@@ -39,11 +39,11 @@ export default class ClientsController {
       
       return client
     } catch (error) {
-      console.log(error)
+      return response.unauthorized()
     }
   }
 
-  public async update({ request }: HttpContextContract) {
+  public async update({ request, response }: HttpContextContract) {
     try {
       const userId = request.param('id')
       const body = request.body()
@@ -54,11 +54,11 @@ export default class ClientsController {
       return {status: 'Client Updated Successfully'}
 
     } catch (error) {
-      console.log(error)
+      return response.unauthorized()
     }    
   }
 
-  public async destroy({ request }: HttpContextContract) {
+  public async destroy({ request, response }: HttpContextContract) {
     try {
       const clientId = request.param('id')
       const client = await Client.findOrFail(clientId)
@@ -66,7 +66,7 @@ export default class ClientsController {
 
       return { status: 'Client Deleted Successfully'}
     } catch (error) {
-      
+      return response.unauthorized()
     }
   }
 }

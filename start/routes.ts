@@ -21,8 +21,21 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.on('/').redirectToPath('/login');
-Route.resource('/signup', 'SignupController') //OK
-Route.resource('/users', 'UsersController')
-Route.resource('/clients', 'ClientsController')
-Route.resource('/products', 'ProductsController')
-Route.resource('/sales', 'SalesController')
+
+Route.post('/signup', 'UsersController.store')
+Route.post('/login', 'UsersController.login')
+
+Route.get('/clients', 'ClientsController.index').middleware('auth')
+Route.get('/clients/:id', 'ClientsController.show').middleware('auth')
+Route.post('/clients', 'ClientsController.store').middleware('auth')
+Route.put('/clients/:id', 'ClientsController.update').middleware('auth')
+Route.delete('/clients/:id', 'ClientsController.destroy').middleware('auth')
+
+Route.get('/products', 'ProductsController.index').middleware('auth')
+Route.get('/products/:id', 'ProductsController.show').middleware('auth')
+Route.post('/products', 'ProductsController.store').middleware('auth')
+Route.put('/products/:id', 'ProductsController.update').middleware('auth')
+Route.delete('/products/:id', 'ProductsController.destroy').middleware('auth')
+
+
+Route.post('/sales', 'SalesController.store').middleware('auth')
