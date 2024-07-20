@@ -4,7 +4,20 @@ import Product from 'App/Models/Product'
 export default class ProductsController {
   public async index({}: HttpContextContract) {
     const products = await Product.all()
-    return products
+    const filteredProducts = products.map(({price, name, description, quantity}) => {
+      return { name, description, price, quantity }
+    })
+    //Encontrar o modo de como realizar uma custom query
+    await filteredProducts.sort((A, B) => {
+      const a = A.name.toLowerCase()
+      const b = B.name.toLowerCase()
+
+      if (a < b) return -1
+      if (a > b) return 1
+      return 0
+    })
+
+    return filteredProducts
   }
 
   public async store({ request }: HttpContextContract) {

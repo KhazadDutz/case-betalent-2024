@@ -33,15 +33,14 @@ export default class ClientsController {
 
   public async show({ request }: HttpContextContract) {
     try {
-      const clientId = request.param('id')
-      const client = await Client.findOrFail(clientId)
-      
+      const client = await Client.findOrFail(request.param('id'))
+      await client.load('sales')
+      await client.sales.reverse()
       
       return client
     } catch (error) {
       console.log(error)
-    }    
-
+    }
   }
 
   public async update({ request }: HttpContextContract) {

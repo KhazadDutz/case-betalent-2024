@@ -1,10 +1,10 @@
 import Sale from './Sale'
 import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
 
 export default class Client extends BaseModel {
-  @belongsTo(() => Sale)
-  declare sale: BelongsTo<typeof Sale>
+  @hasMany(() => Sale)
+  declare sales: HasMany<typeof Sale>
 
   @column({ isPrimary: true })
   public id: number

@@ -1,11 +1,19 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Sale from 'App/Models/Sale'
 
 export default class SalesController {
   public async index({}: HttpContextContract) {}
 
   public async store({ request }: HttpContextContract) {
-    const payload = request.body
-    
+    const payload = request.body()
+    console.log(payload, 'UNDEFINED?')
+    try {
+      const sale = await Sale.create(payload)
+      console.log(sale.$isPersisted, 'ERROOOOO')
+      return sale
+    } catch (error) {
+      console.log(error, 'ERRO')
+    }
   }
 
   public async show({}: HttpContextContract) {}
