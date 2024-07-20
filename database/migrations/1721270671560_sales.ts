@@ -7,10 +7,10 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       table.integer('client_id').unsigned().references('clients.id').onDelete('CASCADE').notNullable()
-      table.string('product')
-      table.integer('quantity')
-      table.double('unit_price')
-      table.double('total_price')
+      table.string('product').notNullable()
+      table.integer('quantity').notNullable()
+      table.double('unit_price').notNullable()
+      table.double('total_price').notNullable()
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

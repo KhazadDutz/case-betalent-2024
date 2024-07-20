@@ -9,10 +9,11 @@ export default class UsersController {
   }
 
   // SignUp method
-  public async store({ auth, request, response }: HttpContextContract) {
+  public async store({ request, response }: HttpContextContract) {
     try {
       const body = request.only(['email', 'password'])
-
+      if (!body.email || !body.password) throw new Error("Credentials not nullable");
+      
       const doesUserExist = await User.findBy('email', body.email)
       
       if (doesUserExist) throw new Error("Unprocessable Entity")

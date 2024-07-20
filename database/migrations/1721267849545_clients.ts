@@ -6,14 +6,14 @@ export default class extends BaseSchema {
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
-      table.string('cep')
-      table.string('cellphone_number')
-      table.string('city')
-      table.string('cpf')
-      table.string('district')
-      table.string('name')
-      table.string('street_name')
-      table.integer('street_number')
+      table.string('cep').notNullable
+      table.string('cellphone_number').notNullable()
+      table.string('city').notNullable()
+      table.string('cpf').notNullable()
+      table.string('district').notNullable()
+      table.string('name').notNullable()
+      table.string('street_name').notNullable()
+      table.integer('street_number').notNullable()
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */
