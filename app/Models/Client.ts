@@ -1,12 +1,8 @@
-import CellphoneNumber from './CellphoneNumber'
 import Sale from './Sale'
 import { DateTime } from 'luxon'
 import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 
 export default class Client extends BaseModel {
-  @belongsTo(() => CellphoneNumber)
-  declare cellphone: BelongsTo<typeof CellphoneNumber>
-
   @belongsTo(() => Sale)
   declare sale: BelongsTo<typeof Sale>
 
