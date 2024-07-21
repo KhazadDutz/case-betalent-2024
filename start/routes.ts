@@ -37,5 +37,4 @@ Route.post('/products', 'ProductsController.store').middleware('auth')
 Route.put('/products/:id', 'ProductsController.update').middleware('auth')
 Route.delete('/products/:id', 'ProductsController.destroy').middleware('auth')
 
-
 Route.post('/sales', 'SalesController.store').middleware('auth')
